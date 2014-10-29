@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package >
+  <metadata>
+    <id>evReact</id>
+    <version>0.9.0</version>
+    <authors>Andrea Canciani</authors>
+    <projectUrl>https://github.com/vslab/evreact</projectUrl>
+    <description>Package description TODO</description>
+  </metadata>
+  <files>
+    <file src="src/bin/Release/**/evReact.dll" target="lib" />
+  </files>
+</package>
