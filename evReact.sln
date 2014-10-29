@@ -5,6 +5,8 @@ VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "evReact", "src\evReact.fsproj", "{20D72B7F-696D-478E-837C-9415C4E20808}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "test", "test\test.fsproj", "{E522C6DA-1E95-4612-A4B5-684C1DECE0B4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{20D72B7F-696D-478E-837C-9415C4E20808}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{20D72B7F-696D-478E-837C-9415C4E20808}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{20D72B7F-696D-478E-837C-9415C4E20808}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E522C6DA-1E95-4612-A4B5-684C1DECE0B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E522C6DA-1E95-4612-A4B5-684C1DECE0B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E522C6DA-1E95-4612-A4B5-684C1DECE0B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E522C6DA-1E95-4612-A4B5-684C1DECE0B4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
