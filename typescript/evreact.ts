@@ -633,10 +633,26 @@ module evreact {
 	}
     }
 
+    class IEventArgsPair<T> {
+    	constructor(public event:IEvent<T>,
+		    public args:T) { }
+    }
+
     class SealedDebugOrchestrator<T> extends SealedOrchestrator<T> implements DebugOrchestrator<T> {
 	public onEvent = event.create<IEvent<T>>();
 	public onStepBegin = event.create<IEvent<T>>();
 	public onStepEnd = event.create<IEvent<T>>();
+
+	enqueueEvent(event: IEvent<T>, args: T) {
+	    this.onEvent.trigger(new IEventArgsPair<T>(event, args));
+	    super.enqueueEvent(event, args);
+	}
+
+	evalEvent(event: IEvent<T>, args: T) {
+	    this.onStepBegin.trigger(new IEventArgsPair<T>(event, args));
+	    super.evalEvent(event, args);
+	    this.onStepEnd.trigger(new IEventArgsPair<T>(event, args));
+	}
     }
 
     class Dispatcher<T> implements IUniqueId, IHandler<T> {
