@@ -31,3 +31,9 @@ type BugsTest() =
     let e,check = prepare [ "ac.bc."; "abc."; "cccaaac.cccabababc." ]
     +((!!(e 'a') ||| !!(e 'b')) - !!(e 'c'))
     |> check
+
+  [<Test>]
+  member this.BugUntil () =
+    let e,check = prepare [ "ab!"; "aab!"; "aaab!aaabbb" ; "aaaab!aaabbb" ]
+    (+(!!(e 'a')) - !!(e 'b')) / [| e 'a'; e 'b' |]
+    |> check
