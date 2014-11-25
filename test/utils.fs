@@ -35,8 +35,11 @@ module Utils =
         let mutable net = expr |> Expr.react update |> Expr.start sentArgs orch
 
         let find v = Seq.exists ((=) v)
+        let mutable prefix = sprintf "%A <- " net
 
         for v in pattern do
+          prefix <- prefix + string(v)
+
           // 0 indicates net termination, with no match
           // . indicates match without net termination
           // ! indicates match and net termination together
@@ -49,16 +52,20 @@ module Utils =
               expectedArgs <- sentArgs
               expectedMatchCount <- expectedMatchCount + 1
 
-          Assert.AreEqual(expectedEmpty, orch.IsEmpty)
-          Assert.AreEqual(expectedMatchCount, !matchCount)
-          Assert.AreEqual(expectedArgs, !receivedArgs)
+          Assert.AreEqual(expectedEmpty, orch.IsEmpty,
+                          "{0}\n{1} Bad state", prefix, sprintf "%A" net)
+          Assert.AreEqual(expectedMatchCount, !matchCount,
+                          "{0}\n{1} Bad match count", prefix, sprintf "%A" net)
+          Assert.AreEqual(expectedArgs, !receivedArgs,
+                          "{0}\n{1} Bad arguments", prefix, sprintf "%A" net)
 
           if not (find v "0.!") then
             sentArgs <- obj()
             events.[v].Trigger(sentArgs)
 
         Expr.stop net
-        Assert.IsTrue(orch.IsEmpty)
+        Assert.IsTrue(orch.IsEmpty,
+                      "{0}\n{1} Could not stop net", prefix, sprintf "%A" net)
 
     let ievents = new System.Collections.Generic.Dictionary<_,_>()
     for e in events do
