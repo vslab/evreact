@@ -268,10 +268,20 @@ namespace EvReact
         if event <> Unchecked.defaultof<_> then
           lock dispatchers (fun () -> dispatchers.[event].EvalEvent(args))
 
-        // Evaluate ground terms; unary operators are immediately
-        // evaluated as soon as the subexpression [un]matches.
+        // Evaluate ground terms:
+
+        // 1. deactivate all of the ground terms that have terminated
         for net in activeGroundTerms do
-          net.Eval(args)
+          net.EvalDeactivate(args)
+
+        // 2. update the matching state
+        for net in activeGroundTerms do
+          net.EvalMatching(args)
+
+        // 3. if the term has not been reactivated, notify deactivation
+        for net in activeGroundTerms do
+          net.EvalNotify(args)
+
         activeGroundTerms.Clear()
 
         // Evaluate operators (bottom-up).
@@ -527,12 +537,16 @@ namespace EvReact
         neg.Enable()
         active <- true
 
-    member this.Eval(args:'T) : unit =
+    member this.EvalDeactivate(args:'T) : unit =
       assert active
       active <- false
       pos.Disable()
       neg.Disable()
+
+    member this.EvalMatching(args:'T) : unit =
       this.SetMatching(successful, args)
+
+    member this.EvalNotify(args:'T) : unit =
       if not active then
         this.Parent.NotifyDeactivation(this.Aux, args)
 
