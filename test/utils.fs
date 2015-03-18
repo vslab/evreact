@@ -4,6 +4,8 @@ open EvReact
 open NUnit.Framework
 
 module Utils =
+  let newCheck x y = ()
+
   let serializationClone<'T> (x:'T) =
     use stream = new System.IO.MemoryStream()
     let formatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter()

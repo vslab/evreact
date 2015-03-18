@@ -9,9 +9,7 @@ open EvReact.Test.Utils
 type SimpleTest() =
   [<Test>]
   member this.Simple () =
-    let e,check = prepare [ "a!"; "bbba!bbb" ]
-    !!(e 'a')
-    |> check
+    newCheck "0 : 0! 1110!111"
 
   [<Test>]
   member this.SimpleCat () =
