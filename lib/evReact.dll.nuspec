@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package >
+  <metadata>
+    <id>evReact</id>
+    <version>0.9.0</version>
+    <authors>Andrea Canciani</authors>
+    <projectUrl>https://vslab.github.io/evreact</projectUrl>
+    <description>Event-based control flow management library for F# and .NET.</description>
+  </metadata>
+  <files>
+    <file src="evReact.dll" target="lib" />
+  </files>
+</package>
