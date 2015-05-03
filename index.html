@@ -46,6 +46,11 @@
   that allows to fire handlers only when a particular sequence of events is detected.
 </p>
 
+<p>
+  We believe that the approach we adopted for <em>evReact</em> has the potential to become
+  a primitive construct for programming languages.
+</p>
+
 <h1>
 <a id="why" class="anchor" href="#why" aria-hidden="true"><span class="octicon octicon-link"></span></a>Why</h1>
 
@@ -171,6 +176,20 @@
       </section>
     </div>
 
+<h1>
+<a id="who" class="anchor" href="#who" aria-hidden="true"><span class="octicon octicon-link"></span></a>Who</h1>
+ 
+<p>
+  <em>evReact</em> is a library with a quite long history. The early studies on how to use Petri Nets for
+  recognizing complex events sequences for composable gesture recognition were conducted by Davide Spano during his PhD,
+  under the supervision of Prof. Antonio Cisternino (<a href="http://twitter.com/cisterni">@cisterni</a>).
+  This led to a first implementation of GestIT with a strict semantics developed in C#. The library was then re-designed
+  and re-implemented using F# with a better and more composable semantics by Andrea Canciani and Marta Martino.
+  During the second implementation we found the programming model widely applicable than just the gesture definitions.
+  This led to the current <em>evReact</em> implementation (and PhD work) by Andrea Canciani under the supervision of
+  Prof. Antonio Cisternino. <em>GestIT</em> will be eventually rewritten based on <em>evReact</em>. Under this last
+  rewriting more attention has been paid to critical aspects of semantics such as concurrency.
+</p>
     
   </body>
 </html>
