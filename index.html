@@ -34,14 +34,48 @@
 <h1>
 <a id="what" class="anchor" href="#what" aria-hidden="true"><span class="octicon octicon-link"></span></a>What</h1>
 
-<p>Reactive programming is becoming an important ingredient since reactive systems (as defined by the <a href="http://www.reactivemanifesto.org/">Reactive Manifesto</a>). The <em>evReact</em> library is an event based control flow management library for supporting this type of programming.</p>
+<p>
+  Reactive programming is becoming an important ingredient since reactive systems
+  (as defined by the <a href="http://www.reactivemanifesto.org/">Reactive Manifesto</a>). 
+  The <em>evReact</em> library is an event based control flow management library for
+  supporting this type of programming.
+ </p>
 
-<p>Using few compositional operators it is possible to define an event-tracking system that allows to fire handlers only when a particular sequence of events is detected.</p>
+<p>
+  Using few compositional operators it is possible to define an event-tracking system
+  that allows to fire handlers only when a particular sequence of events is detected.
+</p>
+
+<h1>
+<a id="why" class="anchor" href="#why" aria-hidden="true"><span class="octicon octicon-link"></span></a>Why</h1>
+
+<p>
+  Using this lightweight support for recognizing sequence of events it is possible
+  to overlay workflows into programs. There are several applications including:
+</p>
+
+<ul>
+  <li>Compositional gesture recognition like the one in the <a href="http://gestit.github.io/GestIT/">GestIT</a> library</li>
+  <li>Control flow serialization is possible since evReact control flow is represented as a serializable data structure.</li>
+  <li>Internal program tracking for ensuring that the program is in a well known macrostate before executing some code.</li>
+  <li>Hirearchical events handling (i.e. expressions recognizing different but analogous events fire meta events into other expressions).</li>
+  <li>Handling related events with unbound args (i.e. multitouch events with arbitrary number of touches).</li>
+</ul>
+
+<p>
+  Expressions generates Petri networks that are responsible for recognizing the event sequences. Generated Nets
+  are not Turing Complete, though completeness is achievable by dynamic net generation. This esnure a good mix of
+  verifiability and expressivity.
+</p>
 
 <h1>
 <a id="where" class="anchor" href="#where" aria-hidden="true"><span class="octicon octicon-link"></span></a>Where</h1>
 
-<p>The <em>evReact</em> library is primarily developed in F# and is available to .NET languages. We are adding ports to other programming systems the programming model. The Typescript/Javascript implementation is already available. Python and Java implementations are under development.</p>
+<p>
+  The <em>evReact</em> library is primarily developed in F# and is available to .NET languages. 
+  We are adding ports to other programming systems the programming model. The Typescript/Javascript
+  implementation is already available. Python and Java implementations are under development.
+</p>
 
 <h1>
 <a id="how" class="anchor" href="#how" aria-hidden="true"><span class="octicon octicon-link"></span></a>How</h1>
