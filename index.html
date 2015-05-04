@@ -64,8 +64,8 @@
   <li>Compositional gesture recognition like the one in the <a href="http://gestit.github.io/GestIT/">GestIT</a> library</li>
   <li>Control flow serialization is possible since evReact control flow is represented as a serializable data structure.</li>
   <li>Internal program tracking for ensuring that the program is in a well known macrostate before executing some code.</li>
-  <li>Hirearchical events handling (i.e. expressions recognizing different but analogous events fire meta events into other expressions).</li>
-  <li>Handling related events with unbound args (i.e. multitouch events with arbitrary number of touches).</li>
+  <li>Hierarchical event handling (i.e. expressions recognizing different but analogous events fire meta events into other expressions).</li>
+  <li>Handling related events with unbound arguments (i.e. multitouch events with arbitrary number of touches).</li>
   <li>The model supports event orchestration across different processes, supporting distributed application
     development like Web apps.
   </li>
@@ -74,7 +74,7 @@
 
 <p>
   Expressions generates Petri networks that are responsible for recognizing the event sequences. Generated Nets
-  are not Turing Complete, though completeness is achievable by dynamic net generation. This esnure a good mix of
+  are not Turing Complete, though completeness is achievable by dynamic net generation. This ensures a good mix of
   verifiability and expressivity.
 </p>
 
@@ -83,7 +83,7 @@
 
 <p>
   The <em>evReact</em> library is primarily developed in F# and is available to .NET languages. 
-  We are adding ports to other programming systems the programming model. The Typescript/Javascript
+  We are adding ports to other programming systems the programming model. The TypeScript/JavaScript
   implementation is already available. Python and Java implementations are under development.
 </p>
 
@@ -110,22 +110,22 @@
        <td><code>%-</code></td>
        <td>
          This operator is similar to <code>!!</code> but it allows to accept events
-         only if a give condition is met.
+         only if a given condition is met.
        </td>
      </tr>
      <tr>
        <td>Action</td>
        <td><code>|-></code></code></td>
        <td>
-         With the action operator is possible to trigger a function when an expression
-         recognize the sequence of events.
+         With the action operator it is possible to invoke a function when an expression
+         recognizes an event pattern.
        </td>
      </tr>
      <tr>
        <td>Fault handling</td>
        <td><code>|=></code></code></td>
        <td>
-         Like in the <code>try/finally</code> construct of many languages this operator allows to
+         Like in the <code>try/finally</code> construct of many languages, this operator allows to
          execute an action when an expression either completes or fails.  
        </td>
      </tr>
@@ -143,16 +143,16 @@
        <td>Iter</td>
        <td><code>+</code></td>
        <td>
-         If an expression involving events is prefixed with this operator the events sequence
-         is recognized many times.
+         If an expression involving events is prefixed with this operator, the event pattern
+         can be recognized multiple times.
        </td>
      </tr>
      <tr>
        <td>All</td>
        <td><code>&amp;&amp;&amp;</code></td>
        <td>
-         The expression <code>(!!A &amp;&amp;&amp; !!B &amp;&amp;&amp; !!C)</code> recognize
-         the event <code>A</code>, <code>B</code> and <code>C</code> and completes only when
+         The expression <code>(!!A &amp;&amp;&amp; !!B &amp;&amp;&amp; !!C)</code> recognizes
+         the events <code>A</code>, <code>B</code> and <code>C</code> and completes only when
          all the three events are recognized.
        </td>
      </tr>
@@ -160,19 +160,20 @@
        <td>Any</td>
        <td><code>|||</code></td>
        <td>
-         This operator is similar to the all operator but in this case any of the subexpressions
-         completes the whole expression completes (abandoning the recognition of the uncomplete
-         expressions).
+         This operator is similar to the <code>&amp;&amp;&amp</code>
+         operator but in this case whenever any of the subexpressions
+         completes, the whole expression completes (and the
+         recognition of the other subexpressions is continued).
        </td>
      </tr>
      <tr>
        <td>Restrict</td>
        <td><code>/</code></td>
        <td>
-         The event recognizer usually ignores the events different by those expected by an expression.
+         The event recognizer usually ignores events different from those expected by an expression.
          For instance in the sequence <code>(!!A - !!B)</code> if <code>A</code> is expected and <code>B</code>
-         or any other event happens the events are ignored. The restriction allows to restrict an expression
-         over a given alphabet of events; for instance in <code>(!!A - !!B)/[A;B]</code> if <code>B</code> happens
+         or any other event happens, those events are ignored. The restriction operator allows to restrict an expression
+         over a given alphabet of events; for instance in <code>(!!A - !!B)/[|A;B|]</code> if <code>B</code> happens
          while <code>A</code> is expected the whole recognition fails.
        </td>
      </tr>
