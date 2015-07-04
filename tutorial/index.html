@@ -1,0 +1,551 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>evReact tutorial</title>
+    <meta name="description" content="A brief tutorial for using the evReact library from the various languages supported">
+    <meta name="author" content="Antonio Cisternino">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <script src="//code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="//code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/night.css" id="theme">
+    <link type="text/css" rel="stylesheet" href="fsharp.formatting/styles/style.css" />
+    <link type="text/css" rel="stylesheet" href="fsharp.formatting/styles/deedle.css" />
+    <link type="text/css" rel="stylesheet" href="css/custom.css" />
+    <script src="fsharp.formatting/styles/tips.js" type="text/javascript"></script>
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+    <link rel="stylesheet" href="css/fsreveal.css">
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+    </script>
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+    <script language="javascript" type="text/javascript">
+        function init()
+        {
+            websocket = new WebSocket("ws://localhost:8083/websocket");
+            websocket.onmessage = function(evt) { location.reload(); };
+        }
+        window.addEventListener("load", init, false);
+    </script>
+</head>
+<body>
+    <div class="reveal">
+        <div class="tip" id="fs1">namespace System</div>
+<div class="tip" id="fs2">namespace System.Windows</div>
+<div class="tip" id="fs3">namespace System.Windows.Forms</div>
+<div class="tip" id="fs4">val E : e:IEvent&lt;&#39;c,&#39;a&gt; -&gt; IEvent&lt;&#39;a&gt; (requires delegate and &#39;c :&gt; System.Delegate)<br /><br />Full name: index.E</div>
+<div class="tip" id="fs5">val e : IEvent&lt;&#39;c,&#39;a&gt; (requires delegate and &#39;c :&gt; System.Delegate)</div>
+<div class="tip" id="fs6">type IEvent&lt;&#39;T&gt; = IEvent&lt;Handler&lt;&#39;T&gt;,&#39;T&gt;<br /><br />Full name: Microsoft.FSharp.Control.IEvent&lt;_&gt;</div>
+<div class="tip" id="fs7">val evt : Event&lt;&#39;a&gt;</div>
+<div class="tip" id="fs8">Multiple items<br />type Control =<br />&#160;&#160;inherit Component<br />&#160;&#160;new : unit -&gt; Control + 4 overloads<br />&#160;&#160;member AccessibilityObject : AccessibleObject<br />&#160;&#160;member AccessibleDefaultActionDescription : string with get, set<br />&#160;&#160;member AccessibleDescription : string with get, set<br />&#160;&#160;member AccessibleName : string with get, set<br />&#160;&#160;member AccessibleRole : AccessibleRole with get, set<br />&#160;&#160;member AllowDrop : bool with get, set<br />&#160;&#160;member Anchor : AnchorStyles with get, set<br />&#160;&#160;member AutoScrollOffset : Point with get, set<br />&#160;&#160;member AutoSize : bool with get, set<br />&#160;&#160;...<br />&#160;&#160;nested type ControlAccessibleObject<br />&#160;&#160;nested type ControlCollection<br /><br />Full name: System.Windows.Forms.Control<br /><br />--------------------<br />Control() : unit<br />Control(text: string) : unit<br />Control(parent: Control, text: string) : unit<br />Control(text: string, left: int, top: int, width: int, height: int) : unit<br />Control(parent: Control, text: string, left: int, top: int, width: int, height: int) : unit</div>
+<div class="tip" id="fs9">Multiple items<br />module Event<br /><br />from Microsoft.FSharp.Control<br /><br />--------------------<br />type Event&lt;&#39;Delegate,&#39;Args (requires delegate and &#39;Delegate :&gt; Delegate)&gt; =<br />&#160;&#160;new : unit -&gt; Event&lt;&#39;Delegate,&#39;Args&gt;<br />&#160;&#160;member Trigger : sender:obj * args:&#39;Args -&gt; unit<br />&#160;&#160;member Publish : IEvent&lt;&#39;Delegate,&#39;Args&gt;<br /><br />Full name: Microsoft.FSharp.Control.Event&lt;_,_&gt;<br /><br />--------------------<br />type Event&lt;&#39;T&gt; =<br />&#160;&#160;new : unit -&gt; Event&lt;&#39;T&gt;<br />&#160;&#160;member Trigger : arg:&#39;T -&gt; unit<br />&#160;&#160;member Publish : IEvent&lt;&#39;T&gt;<br /><br />Full name: Microsoft.FSharp.Control.Event&lt;_&gt;<br /><br />--------------------<br />new : unit -&gt; Event&lt;&#39;Delegate,&#39;Args&gt;<br /><br />--------------------<br />new : unit -&gt; Event&lt;&#39;T&gt;</div>
+<div class="tip" id="fs10">member System.IObservable.Add : callback:(&#39;T -&gt; unit) -&gt; unit</div>
+<div class="tip" id="fs11">val e : &#39;a</div>
+<div class="tip" id="fs12">member Event.Trigger : arg:&#39;T -&gt; unit</div>
+<div class="tip" id="fs13">property Event.Publish: IEvent&lt;&#39;a&gt;</div>
+<div class="tip" id="fs14">val f : Form<br /><br />Full name: index.f</div>
+<div class="tip" id="fs15">Multiple items<br />type Form =<br />&#160;&#160;inherit ContainerControl<br />&#160;&#160;new : unit -&gt; Form<br />&#160;&#160;member AcceptButton : IButtonControl with get, set<br />&#160;&#160;member Activate : unit -&gt; unit<br />&#160;&#160;member ActiveMdiChild : Form<br />&#160;&#160;member AddOwnedForm : ownedForm:Form -&gt; unit<br />&#160;&#160;member AllowTransparency : bool with get, set<br />&#160;&#160;member AutoScale : bool with get, set<br />&#160;&#160;member AutoScaleBaseSize : Size with get, set<br />&#160;&#160;member AutoScroll : bool with get, set<br />&#160;&#160;member AutoSize : bool with get, set<br />&#160;&#160;...<br />&#160;&#160;nested type ControlCollection<br /><br />Full name: System.Windows.Forms.Form<br /><br />--------------------<br />Form() : unit</div>
+<div class="tip" id="fs16">val md : IEvent&lt;MouseEventArgs&gt;<br /><br />Full name: index.md</div>
+<div class="tip" id="fs17">event Control.MouseDown: IEvent&lt;MouseEventHandler,MouseEventArgs&gt;</div>
+<div class="tip" id="fs18">val net : obj<br /><br />Full name: index.net</div>
+<div class="tip" id="fs19">val printfn : format:Printf.TextWriterFormat&lt;&#39;T&gt; -&gt; &#39;T<br /><br />Full name: Microsoft.FSharp.Core.ExtraTopLevelOperators.printfn</div>
+<div class="tip" id="fs20">Control.Show() : unit<br />Form.Show(owner: IWin32Window) : unit</div>
+<div class="tip" id="fs21">val orch : &#39;a<br /><br />Full name: index.orch</div>
+<div class="tip" id="fs22">val net : &#39;_arg3<br /><br />Full name: index.net</div>
+<div class="tip" id="fs23">val net : &#39;_arg3 (requires member ( ~+ ))<br /><br />Full name: index.net</div>
+<div class="tip" id="fs24">val net : &#39;a (requires member ( ~+ ) and member ( - ))<br /><br />Full name: index.net</div>
+<div class="tip" id="fs25">Multiple items<br />type MyForm =<br />&#160;&#160;inherit Form<br />&#160;&#160;new : unit -&gt; MyForm<br /><br />Full name: index.MyForm<br /><br />--------------------<br />new : unit -&gt; MyForm</div>
+<div class="tip" id="fs26">val this : MyForm</div>
+<div class="tip" id="fs27">type ControlStyles =<br />&#160;&#160;| ContainerControl = 1<br />&#160;&#160;| UserPaint = 2<br />&#160;&#160;| Opaque = 4<br />&#160;&#160;| ResizeRedraw = 16<br />&#160;&#160;| FixedWidth = 32<br />&#160;&#160;| FixedHeight = 64<br />&#160;&#160;| StandardClick = 256<br />&#160;&#160;| Selectable = 512<br />&#160;&#160;| UserMouse = 1024<br />&#160;&#160;| SupportsTransparentBackColor = 2048<br />&#160;&#160;...<br /><br />Full name: System.Windows.Forms.ControlStyles</div>
+<div class="tip" id="fs28">field ControlStyles.AllPaintingInWmPaint = 8192</div>
+<div class="tip" id="fs29">field ControlStyles.OptimizedDoubleBuffer = 131072</div>
+<div class="tip" id="fs30">val f : MyForm<br /><br />Full name: index.f</div>
+<div class="tip" id="fs31">val rect : &#39;a ref<br /><br />Full name: index.rect</div>
+<div class="tip" id="fs32">Multiple items<br />val ref : value:&#39;T -&gt; &#39;T ref<br /><br />Full name: Microsoft.FSharp.Core.Operators.ref<br /><br />--------------------<br />type &#39;T ref = Ref&lt;&#39;T&gt;<br /><br />Full name: Microsoft.FSharp.Core.ref&lt;_&gt;</div>
+<div class="tip" id="fs33">val target : &#39;a ref<br /><br />Full name: index.target</div>
+<div class="tip" id="fs34">val bgcol : &#39;a ref<br /><br />Full name: index.bgcol</div>
+<div class="tip" id="fs35">val off : &#39;a ref<br /><br />Full name: index.off</div>
+<div class="tip" id="fs36">event Control.Paint: IEvent&lt;PaintEventHandler,PaintEventArgs&gt;</div>
+<div class="tip" id="fs37">Control.Invalidate() : unit<br />Control.Invalidate(rc: System.Drawing.Rectangle) : unit<br />Control.Invalidate(invalidateChildren: bool) : unit<br />Control.Invalidate(region: System.Drawing.Region) : unit<br />Control.Invalidate(rc: System.Drawing.Rectangle, invalidateChildren: bool) : unit<br />Control.Invalidate(region: System.Drawing.Region, invalidateChildren: bool) : unit</div>
+<div class="tip" id="fs38">val not : value:bool -&gt; bool<br /><br />Full name: Microsoft.FSharp.Core.Operators.not</div>
+
+        <!-- Any section element inside of this container is displayed as a slide -->
+        <div class="slides">
+            <section >
+
+<h3>What is evReact?</h3>
+
+<p><a href="http://vslab.github.io/evreact"><strong>evReact</strong></a> is a vary compact and expressive library supporting
+reactive programming. Using <strong>evReact</strong> it is possible to track sequence of events and perform
+actions only when specific conditions are met. A set of operators allows the compositional definition of 
+recognizers.</p>
+
+<p><strong>evReact</strong> has been developed in .NET using F# (it is available to .NET languages) and for Javascript using
+Typescript. More implementation will come in the future implementing the same model.</p>
+
+</section>
+
+<section >
+
+<h3>About this tutorial</h3>
+
+<ul>
+<li>In this tutorial you will learn the basics patterns to perform basic and avdanced tasks.</li>
+<li>You can use F#, C# or Javascript</li>
+</ul>
+
+</section>
+
+<section >
+
+<section >
+
+<h3>F# Tutorial</h3>
+
+</section>
+
+<section author="Antonio Cisternino" description="A brief tutorial for using the evReact library from the various languages supported" theme="night" title="evReact tutorial" transition="default">
+
+<h4>Playing with Windows Forms</h4>
+
+<p>In this section we will start using Windows Forms. The following code snippets are assumed sharing the following incipit:</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+<span class="l">6: </span>
+<span class="l">7: </span>
+<span class="l">8: </span>
+<span class="l">9: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">open</span> <span onmouseout="hideTip(event, 'fs1', 1)" onmouseover="showTip(event, 'fs1', 1)" class="i">System</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs2', 2)" onmouseover="showTip(event, 'fs2', 2)" class="i">Windows</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs3', 3)" onmouseover="showTip(event, 'fs3', 3)" class="i">Forms</span>
+<span class="k">open</span> <span class="i">EvReact</span>
+<span class="k">open</span> <span class="i">EvReact</span><span class="o">.</span><span class="i">Expr</span>
+<span class="k">open</span> <span class="i">EvReact</span><span class="o">.</span><span class="i">Orchestrator</span>
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs4', 4)" onmouseover="showTip(event, 'fs4', 4)" class="f">E</span> (<span onmouseout="hideTip(event, 'fs5', 5)" onmouseover="showTip(event, 'fs5', 5)" class="i">e</span><span class="o">:</span><span onmouseout="hideTip(event, 'fs6', 6)" onmouseover="showTip(event, 'fs6', 6)" class="t">IEvent</span><span class="o">&lt;</span><span class="o">&#39;</span><span class="i">c</span>,<span class="o">&#39;</span><span class="i">a</span><span class="o">&gt;</span>) <span class="o">=</span> 
+  <span class="k">let</span> <span onmouseout="hideTip(event, 'fs7', 7)" onmouseover="showTip(event, 'fs7', 7)" class="i">evt</span> <span class="o">=</span> <span class="k">new</span> <span onmouseout="hideTip(event, 'fs8', 8)" onmouseover="showTip(event, 'fs8', 8)" class="i">Control</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs9', 9)" onmouseover="showTip(event, 'fs9', 9)" class="t">Event</span><span class="o">&lt;</span><span class="o">&#39;</span><span class="i">a</span><span class="o">&gt;</span>()
+  <span onmouseout="hideTip(event, 'fs5', 10)" onmouseover="showTip(event, 'fs5', 10)" class="i">e</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs10', 11)" onmouseover="showTip(event, 'fs10', 11)" class="f">Add</span>(<span class="k">fun</span> <span onmouseout="hideTip(event, 'fs11', 12)" onmouseover="showTip(event, 'fs11', 12)" class="i">e</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs7', 13)" onmouseover="showTip(event, 'fs7', 13)" class="i">evt</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs12', 14)" onmouseover="showTip(event, 'fs12', 14)" class="f">Trigger</span>(<span onmouseout="hideTip(event, 'fs11', 15)" onmouseover="showTip(event, 'fs11', 15)" class="i">e</span>))
+  <span onmouseout="hideTip(event, 'fs7', 16)" onmouseover="showTip(event, 'fs7', 16)" class="i">evt</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs13', 17)" onmouseover="showTip(event, 'fs13', 17)" class="i">Publish</span>
+</code></pre></td>
+</tr>
+</table>
+
+<blockquote>
+  <p>The <strong>E</strong> function is an adapter needed to convert the IEvent<'a, 'b> interface implemented by Windows Forms events into
+IEvent<'b> used by F#. Future versions of the library will not need this adapter anymore.</p>
+</blockquote>
+
+</section>
+
+<section author="Antonio Cisternino" description="A brief tutorial for using the evReact library from the various languages supported" theme="night" title="evReact tutorial" transition="default">
+
+<h5>A simple example</h5>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+<span class="l">6: </span>
+<span class="l">7: </span>
+<span class="l">8: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs14', 18)" onmouseover="showTip(event, 'fs14', 18)" class="i">f</span> <span class="o">=</span> <span class="k">new</span> <span onmouseout="hideTip(event, 'fs15', 19)" onmouseover="showTip(event, 'fs15', 19)" class="t">Form</span>(<span class="i">Text</span><span class="o">=</span><span class="s">&quot;Hello world from evReact&quot;</span>)
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs16', 20)" onmouseover="showTip(event, 'fs16', 20)" class="i">md</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs4', 21)" onmouseover="showTip(event, 'fs4', 21)" class="f">E</span> <span onmouseout="hideTip(event, 'fs14', 22)" onmouseover="showTip(event, 'fs14', 22)" class="i">f</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs17', 23)" onmouseover="showTip(event, 'fs17', 23)" class="i">MouseDown</span>
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs18', 24)" onmouseover="showTip(event, 'fs18', 24)" class="i">net</span> <span class="o">=</span> <span class="o">!!</span><span onmouseout="hideTip(event, 'fs16', 25)" onmouseover="showTip(event, 'fs16', 25)" class="i">md</span> <span class="o">|-&gt;</span> <span class="k">fun</span> <span onmouseout="hideTip(event, 'fs11', 26)" onmouseover="showTip(event, 'fs11', 26)" class="i">e</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs19', 27)" onmouseover="showTip(event, 'fs19', 27)" class="f">printfn</span> <span class="s">&quot;Mouse down @(</span><span class="pf">%d</span><span class="s">, </span><span class="pf">%d</span><span class="s">)&quot;</span> <span onmouseout="hideTip(event, 'fs11', 28)" onmouseover="showTip(event, 'fs11', 28)" class="i">e</span><span class="o">.</span><span class="i">X</span> <span onmouseout="hideTip(event, 'fs11', 29)" onmouseover="showTip(event, 'fs11', 29)" class="i">e</span><span class="o">.</span><span class="i">Y</span>
+<span onmouseout="hideTip(event, 'fs14', 30)" onmouseover="showTip(event, 'fs14', 30)" class="i">f</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs20', 31)" onmouseover="showTip(event, 'fs20', 31)" class="f">Show</span>()
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs21', 32)" onmouseover="showTip(event, 'fs21', 32)" class="i">orch</span> <span class="o">=</span> <span class="i">Orchestrator</span><span class="o">.</span><span class="i">create</span>()
+<span class="i">Expr</span><span class="o">.</span><span class="i">start</span> <span class="k">null</span> <span onmouseout="hideTip(event, 'fs21', 33)" onmouseover="showTip(event, 'fs21', 33)" class="i">orch</span> <span onmouseout="hideTip(event, 'fs18', 34)" onmouseover="showTip(event, 'fs18', 34)" class="i">net</span>
+</code></pre></td>
+</tr>
+</table>
+
+<p>A program using <strong>evReact</strong> needs an orchestrator to track the events defined by an expression
+(we will refer to the expression as net in this tutorial).</p>
+
+</section>
+
+<section author="Antonio Cisternino" description="A brief tutorial for using the evReact library from the various languages supported" theme="night" title="evReact tutorial" transition="default">
+
+<h5>The first <strong>evReact</strong> expression</h5>
+
+<p>In this simple example we used the following expression:</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs22', 35)" onmouseover="showTip(event, 'fs22', 35)" class="i">net</span> <span class="o">=</span> <span class="o">!!</span><span onmouseout="hideTip(event, 'fs16', 36)" onmouseover="showTip(event, 'fs16', 36)" class="i">md</span> <span class="o">|-&gt;</span> <span class="k">fun</span> <span onmouseout="hideTip(event, 'fs11', 37)" onmouseover="showTip(event, 'fs11', 37)" class="i">e</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs19', 38)" onmouseover="showTip(event, 'fs19', 38)" class="f">printfn</span> <span class="s">&quot;Mouse down @(</span><span class="pf">%d</span><span class="s">, </span><span class="pf">%d</span><span class="s">)&quot;</span> <span onmouseout="hideTip(event, 'fs11', 39)" onmouseover="showTip(event, 'fs11', 39)" class="i">e</span><span class="o">.</span><span class="i">X</span> <span onmouseout="hideTip(event, 'fs11', 40)" onmouseover="showTip(event, 'fs11', 40)" class="i">e</span><span class="o">.</span><span class="i">Y</span>
+</code></pre></td>
+</tr>
+</table>
+
+<ul>
+<li>Using the operator <strong>!!</strong> we create a simple listener of the mouse down events.</li>
+<li>The operator <strong>|-&gt;</strong> is used to associate an event handler to be fired when the net completes.</li>
+</ul>
+
+<blockquote>
+  <p>The <strong>net</strong> completes after the first click on the form.</p>
+</blockquote>
+
+</section>
+
+<section author="Antonio Cisternino" description="A brief tutorial for using the evReact library from the various languages supported" theme="night" title="evReact tutorial" transition="default">
+
+<h5>The iteration operator</h5>
+
+<ul>
+<li><strong>evReact</strong> expressions generate Petri nets where token flows when events are received.</li>
+<li>A net can complete or terminate (i.e. all tokens are discarded)</li>
+<li>The <strong>+</strong> prefix operator interates the network for ever, ensuring that whenever the net
+completes it is restarted</li>
+<li>In our example we can refine the mouse down detection as follows:</li>
+</ul>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp">  <span class="k">let</span> <span onmouseout="hideTip(event, 'fs23', 41)" onmouseover="showTip(event, 'fs23', 41)" class="i">net</span> <span class="o">=</span> <span class="o">+</span>(<span class="o">!!</span><span onmouseout="hideTip(event, 'fs16', 42)" onmouseover="showTip(event, 'fs16', 42)" class="i">md</span> <span class="o">|-&gt;</span> <span class="k">fun</span> <span onmouseout="hideTip(event, 'fs11', 43)" onmouseover="showTip(event, 'fs11', 43)" class="i">e</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs19', 44)" onmouseover="showTip(event, 'fs19', 44)" class="f">printfn</span> <span class="s">&quot;Mouse down @(</span><span class="pf">%d</span><span class="s">, </span><span class="pf">%d</span><span class="s">)&quot;</span> <span onmouseout="hideTip(event, 'fs11', 45)" onmouseover="showTip(event, 'fs11', 45)" class="i">e</span><span class="o">.</span><span class="i">X</span> <span onmouseout="hideTip(event, 'fs11', 46)" onmouseover="showTip(event, 'fs11', 46)" class="i">e</span><span class="o">.</span><span class="i">Y</span>)
+</code></pre></td>
+</tr>
+</table>
+
+<blockquote>
+  <p>Iteration completes each time its sub net completes, so the event handler associated
+  with the operator <strong>|-&gt;</strong> can be attached to <strong>md</strong> or to the iteration net.</p>
+</blockquote>
+
+</section>
+
+<section author="Antonio Cisternino" description="A brief tutorial for using the evReact library from the various languages supported" theme="night" title="evReact tutorial" transition="default">
+
+<h5>Sequences</h5>
+
+<ul>
+<li>Sequence is used to state that a net should complete before another net can start</li>
+<li>The infix operator for concatenating two nets is <strong>-</strong></li>
+<li>For instance the net for recognizing two mouse down is:</li>
+</ul>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp">  <span class="k">let</span> <span onmouseout="hideTip(event, 'fs24', 47)" onmouseover="showTip(event, 'fs24', 47)" class="i">net</span> <span class="o">=</span> <span class="o">+</span>(
+                (<span class="o">!!</span><span onmouseout="hideTip(event, 'fs16', 48)" onmouseover="showTip(event, 'fs16', 48)" class="i">md</span> <span class="o">|-&gt;</span> <span class="k">fun</span> <span onmouseout="hideTip(event, 'fs11', 49)" onmouseover="showTip(event, 'fs11', 49)" class="i">e</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs19', 50)" onmouseover="showTip(event, 'fs19', 50)" class="f">printfn</span> <span class="s">&quot;Mouse down 1 @(</span><span class="pf">%d</span><span class="s">, </span><span class="pf">%d</span><span class="s">)&quot;</span> <span onmouseout="hideTip(event, 'fs11', 51)" onmouseover="showTip(event, 'fs11', 51)" class="i">e</span><span class="o">.</span><span class="i">X</span> <span onmouseout="hideTip(event, 'fs11', 52)" onmouseover="showTip(event, 'fs11', 52)" class="i">e</span><span class="o">.</span><span class="i">Y</span>)
+              <span class="o">-</span> (<span class="o">!!</span><span onmouseout="hideTip(event, 'fs16', 53)" onmouseover="showTip(event, 'fs16', 53)" class="i">md</span> <span class="o">|-&gt;</span> <span class="k">fun</span> <span onmouseout="hideTip(event, 'fs11', 54)" onmouseover="showTip(event, 'fs11', 54)" class="i">e</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs19', 55)" onmouseover="showTip(event, 'fs19', 55)" class="f">printfn</span> <span class="s">&quot;Mouse down 2 @(</span><span class="pf">%d</span><span class="s">, </span><span class="pf">%d</span><span class="s">)&quot;</span> <span onmouseout="hideTip(event, 'fs11', 56)" onmouseover="showTip(event, 'fs11', 56)" class="i">e</span><span class="o">.</span><span class="i">X</span> <span onmouseout="hideTip(event, 'fs11', 57)" onmouseover="showTip(event, 'fs11', 57)" class="i">e</span><span class="o">.</span><span class="i">Y</span>)
+             )
+</code></pre></td>
+</tr>
+</table>
+
+</section>
+
+<section author="Antonio Cisternino" description="A brief tutorial for using the evReact library from the various languages supported" theme="night" title="evReact tutorial" transition="default">
+
+<h5>Restriction</h5>
+
+<ul>
+<li>Iteration has no condition, so it is natural to wonder how it can be stopped</li>
+<li>The infix restriction operator <strong>/</strong> allows indicating an array of events such
+that if an event occurs and it belongs to the array but it's not expected the
+net terminates (not just completes)</li>
+<li>We can now track the whole drag and drop process:</li>
+</ul>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+<span class="l">6: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp">  <span class="k">let</span> <span onmouseout="hideTip(event, 'fs23', 58)" onmouseover="showTip(event, 'fs23', 58)" class="i">net</span> <span class="o">=</span> 
+    <span class="o">+</span>(
+        (<span class="o">!!</span><span onmouseout="hideTip(event, 'fs16', 59)" onmouseover="showTip(event, 'fs16', 59)" class="i">md</span> <span class="o">|-&gt;</span> <span class="k">fun</span> <span onmouseout="hideTip(event, 'fs11', 60)" onmouseover="showTip(event, 'fs11', 60)" class="i">e</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs19', 61)" onmouseover="showTip(event, 'fs19', 61)" class="f">printfn</span> <span class="s">&quot;Mouse down @(</span><span class="pf">%d</span><span class="s">,</span><span class="pf">%d</span><span class="s">)&quot;</span> <span onmouseout="hideTip(event, 'fs11', 62)" onmouseover="showTip(event, 'fs11', 62)" class="i">e</span><span class="o">.</span><span class="i">X</span> <span onmouseout="hideTip(event, 'fs11', 63)" onmouseover="showTip(event, 'fs11', 63)" class="i">e</span><span class="o">.</span><span class="i">Y</span>) 
+      <span class="o">-</span> (<span class="o">+</span>(<span class="o">!!</span><span class="i">mm</span>) <span class="o">|-&gt;</span> <span class="k">fun</span> <span onmouseout="hideTip(event, 'fs11', 64)" onmouseover="showTip(event, 'fs11', 64)" class="i">e</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs19', 65)" onmouseover="showTip(event, 'fs19', 65)" class="f">printfn</span> <span class="s">&quot;Mouse move @(</span><span class="pf">%d</span><span class="s">,</span><span class="pf">%d</span><span class="s">)&quot;</span> <span onmouseout="hideTip(event, 'fs11', 66)" onmouseover="showTip(event, 'fs11', 66)" class="i">e</span><span class="o">.</span><span class="i">X</span> <span onmouseout="hideTip(event, 'fs11', 67)" onmouseover="showTip(event, 'fs11', 67)" class="i">e</span><span class="o">.</span><span class="i">Y</span>) <span class="o">/</span> [|<span class="i">mm</span>; <span class="i">mu</span>|]
+      <span class="o">-</span> <span class="o">!!</span><span class="i">mu</span> <span class="o">|-&gt;</span> <span class="k">fun</span> <span onmouseout="hideTip(event, 'fs11', 68)" onmouseover="showTip(event, 'fs11', 68)" class="i">e</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs19', 69)" onmouseover="showTip(event, 'fs19', 69)" class="f">printfn</span> <span class="s">&quot;Mouse up @(</span><span class="pf">%d</span><span class="s">,</span><span class="pf">%d</span><span class="s">)&quot;</span> <span onmouseout="hideTip(event, 'fs11', 70)" onmouseover="showTip(event, 'fs11', 70)" class="i">e</span><span class="o">.</span><span class="i">X</span> <span onmouseout="hideTip(event, 'fs11', 71)" onmouseover="showTip(event, 'fs11', 71)" class="i">e</span><span class="o">.</span><span class="i">Y</span>
+    )
+</code></pre></td>
+</tr>
+</table>
+
+</section>
+
+<section author="Antonio Cisternino" description="A brief tutorial for using the evReact library from the various languages supported" theme="night" title="evReact tutorial" transition="default">
+
+<h5>A new playground: the dragging square</h5>
+
+<ul>
+<li>In the next examples we will refer to the following form:</li>
+</ul>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
+<span class="l">15: </span>
+<span class="l">16: </span>
+<span class="l">17: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp">  <span class="k">type</span> <span onmouseout="hideTip(event, 'fs25', 72)" onmouseover="showTip(event, 'fs25', 72)" class="t">MyForm</span>() <span class="k">as</span> <span onmouseout="hideTip(event, 'fs26', 73)" onmouseover="showTip(event, 'fs26', 73)" class="v">this</span> <span class="o">=</span>
+    <span class="k">inherit</span> <span onmouseout="hideTip(event, 'fs15', 74)" onmouseover="showTip(event, 'fs15', 74)" class="t">Form</span>()
+    <span class="k">do</span> <span class="v">this</span><span class="o">.</span><span class="f">SetStyle</span>(<span onmouseout="hideTip(event, 'fs27', 75)" onmouseover="showTip(event, 'fs27', 75)" class="t">ControlStyles</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs28', 76)" onmouseover="showTip(event, 'fs28', 76)" class="i">AllPaintingInWmPaint</span> 
+                     <span class="o">|||</span> <span onmouseout="hideTip(event, 'fs27', 77)" onmouseover="showTip(event, 'fs27', 77)" class="t">ControlStyles</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs29', 78)" onmouseover="showTip(event, 'fs29', 78)" class="i">OptimizedDoubleBuffer</span>, <span class="k">true</span>)
+
+  <span class="k">let</span> <span onmouseout="hideTip(event, 'fs30', 79)" onmouseover="showTip(event, 'fs30', 79)" class="i">f</span> <span class="o">=</span> <span class="k">new</span> <span onmouseout="hideTip(event, 'fs25', 80)" onmouseover="showTip(event, 'fs25', 80)" class="t">MyForm</span>(<span class="i">Text</span><span class="o">=</span><span class="s">&quot;Drag&amp;Drop test with evReact&quot;</span>, <span class="i">Width</span><span class="o">=</span><span class="n">640</span>, <span class="i">Height</span><span class="o">=</span><span class="n">600</span>)
+  <span class="k">let</span> <span onmouseout="hideTip(event, 'fs31', 81)" onmouseover="showTip(event, 'fs31', 81)" class="v">rect</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs32', 82)" onmouseover="showTip(event, 'fs32', 82)" class="f">ref</span>(<span class="k">new</span> <span class="i">Rectangle</span>(<span class="n">0</span>, <span class="n">0</span>, <span class="n">50</span>, <span class="n">50</span>))
+  <span class="k">let</span> <span onmouseout="hideTip(event, 'fs33', 83)" onmouseover="showTip(event, 'fs33', 83)" class="v">target</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs32', 84)" onmouseover="showTip(event, 'fs32', 84)" class="f">ref</span>(<span class="k">new</span> <span class="i">Rectangle</span>(<span class="n">300</span>, <span class="n">300</span>, <span class="n">200</span>, <span class="n">200</span>))
+  <span class="k">let</span> <span onmouseout="hideTip(event, 'fs34', 85)" onmouseover="showTip(event, 'fs34', 85)" class="v">bgcol</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs32', 86)" onmouseover="showTip(event, 'fs32', 86)" class="f">ref</span>(<span class="i">Brushes</span><span class="o">.</span><span class="i">Red</span>)
+  <span class="k">let</span> <span onmouseout="hideTip(event, 'fs35', 87)" onmouseover="showTip(event, 'fs35', 87)" class="v">off</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs32', 88)" onmouseover="showTip(event, 'fs32', 88)" class="f">ref</span>(<span class="k">new</span> <span class="i">Point</span>())
+
+  <span onmouseout="hideTip(event, 'fs30', 89)" onmouseover="showTip(event, 'fs30', 89)" class="i">f</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs36', 90)" onmouseover="showTip(event, 'fs36', 90)" class="i">Paint</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs10', 91)" onmouseover="showTip(event, 'fs10', 91)" class="i">Add</span>(<span class="k">fun</span> <span class="i">e</span> <span class="k">-&gt;</span>
+    <span class="k">let</span> <span class="i">g</span> <span class="o">=</span> <span class="i">e</span><span class="o">.</span><span class="i">Graphics</span>
+    <span class="i">g</span><span class="o">.</span><span class="i">DrawRectangle</span>(<span class="i">Pens</span><span class="o">.</span><span class="i">Gray</span>, <span class="o">!</span><span onmouseout="hideTip(event, 'fs33', 92)" onmouseover="showTip(event, 'fs33', 92)" class="i">target</span>)
+    <span class="i">g</span><span class="o">.</span><span class="i">FillRectangle</span>(<span class="o">!</span><span onmouseout="hideTip(event, 'fs34', 93)" onmouseover="showTip(event, 'fs34', 93)" class="i">bgcol</span>, <span class="o">!</span><span onmouseout="hideTip(event, 'fs31', 94)" onmouseover="showTip(event, 'fs31', 94)" class="i">rect</span>)
+    <span class="i">g</span><span class="o">.</span><span class="i">DrawRectangle</span>(<span class="i">Pens</span><span class="o">.</span><span class="i">Black</span>, <span class="o">!</span><span onmouseout="hideTip(event, 'fs31', 95)" onmouseover="showTip(event, 'fs31', 95)" class="i">rect</span>)
+  )
+</code></pre></td>
+</tr>
+</table>
+
+<ul>
+<li>Using the global variables <strong>rect</strong>, <strong>target</strong>, <strong>bgcol</strong>, and <strong>off</strong> we can move the rectangle <strong>rect</strong>
+by just invalidating the form</li>
+</ul>
+
+</section>
+
+<section author="Antonio Cisternino" description="A brief tutorial for using the evReact library from the various languages supported" theme="night" title="evReact tutorial" transition="default">
+
+<h5>Utilities</h5>
+
+<ul>
+<li>We will also use the following utility functions:</li>
+</ul>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+<span class="l">6: </span>
+<span class="l">7: </span>
+<span class="l">8: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp">  <span class="c">// Utilities</span>
+  <span class="k">let</span> <span class="i">uc</span> <span class="i">col</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs34', 96)" onmouseover="showTip(event, 'fs34', 96)" class="i">bgcol</span> <span class="o">:=</span> <span class="i">col</span>; <span onmouseout="hideTip(event, 'fs30', 97)" onmouseover="showTip(event, 'fs30', 97)" class="i">f</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs37', 98)" onmouseover="showTip(event, 'fs37', 98)" class="i">Invalidate</span>()
+  <span class="k">let</span> <span class="i">dc</span> <span class="i">col</span> <span class="o">=</span> <span class="o">!</span><span onmouseout="hideTip(event, 'fs34', 99)" onmouseover="showTip(event, 'fs34', 99)" class="i">bgcol</span> <span class="o">&lt;&gt;</span> <span class="i">col</span>
+  <span class="k">let</span> <span class="i">inR</span> (<span class="i">p</span><span class="o">:</span><span class="i">Point</span>) <span class="o">=</span> (<span class="o">!</span><span onmouseout="hideTip(event, 'fs31', 100)" onmouseover="showTip(event, 'fs31', 100)" class="i">rect</span>)<span class="o">.</span><span class="i">Contains</span>(<span class="i">p</span>)
+  <span class="k">let</span> <span class="i">placeR</span> (<span class="i">p</span><span class="o">:</span><span class="i">Point</span>) <span class="o">=</span> 
+    <span class="k">let</span> <span class="i">r</span> <span class="o">=</span> <span class="o">!</span><span onmouseout="hideTip(event, 'fs31', 101)" onmouseover="showTip(event, 'fs31', 101)" class="i">rect</span> 
+    <span onmouseout="hideTip(event, 'fs31', 102)" onmouseover="showTip(event, 'fs31', 102)" class="i">rect</span> <span class="o">:=</span> <span class="k">new</span> <span class="i">Rectangle</span>(<span class="i">p</span><span class="o">.</span><span class="i">X</span>, <span class="i">p</span><span class="o">.</span><span class="i">Y</span>, <span class="i">r</span><span class="o">.</span><span class="i">Width</span>, <span class="i">r</span><span class="o">.</span><span class="i">Height</span>);<span onmouseout="hideTip(event, 'fs30', 103)" onmouseover="showTip(event, 'fs30', 103)" class="i">f</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs37', 104)" onmouseover="showTip(event, 'fs37', 104)" class="i">Invalidate</span>()
+  <span class="k">let</span> <span class="i">inT</span> () <span class="o">=</span> (<span class="o">!</span><span onmouseout="hideTip(event, 'fs33', 105)" onmouseover="showTip(event, 'fs33', 105)" class="i">target</span>)<span class="o">.</span><span class="i">Contains</span>(<span class="o">!</span><span onmouseout="hideTip(event, 'fs31', 106)" onmouseover="showTip(event, 'fs31', 106)" class="i">rect</span>)
+</code></pre></td>
+</tr>
+</table>
+
+</section>
+
+<section author="Antonio Cisternino" description="A brief tutorial for using the evReact library from the various languages supported" theme="night" title="evReact tutorial" transition="default">
+
+<h5>Hovering: conditional activation</h5>
+
+<ul>
+<li>Using the <strong>%-</strong> operation we can indicate a boolean predicate P that activates the node when the event
+is received only if P is satisfied</li>
+<li>For example, we can define a net that takes care of highlighting the square when the mouse is over:</li>
+</ul>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp">  <span class="c">// Net recognizing hovering</span>
+  <span class="k">let</span> <span class="i">highlight</span> <span class="o">=</span>
+    <span class="o">+</span>(
+          ((<span class="i">mm</span> <span class="o">%-</span> <span class="k">fun</span> <span class="i">e</span> <span class="k">-&gt;</span> <span class="i">dc</span> <span class="i">Brushes</span><span class="o">.</span><span class="i">Yellow</span> <span class="o">&amp;&amp;</span> <span class="i">inR</span>(<span class="i">e</span><span class="o">.</span><span class="i">Location</span>)) 
+           <span class="o">|-&gt;</span> <span class="k">fun</span> _ <span class="k">-&gt;</span> <span class="i">uc</span> <span class="i">Brushes</span><span class="o">.</span><span class="i">Yellow</span>)
+      <span class="o">|||</span> ((<span class="i">mm</span> <span class="o">%-</span> <span class="k">fun</span> <span class="i">e</span> <span class="k">-&gt;</span> <span class="i">dc</span> <span class="i">Brushes</span><span class="o">.</span><span class="i">Red</span> <span class="o">&amp;&amp;</span> <span onmouseout="hideTip(event, 'fs38', 107)" onmouseover="showTip(event, 'fs38', 107)" class="i">not</span>(<span class="i">inR</span>(<span class="i">e</span><span class="o">.</span><span class="i">Location</span>)))
+           <span class="o">|-&gt;</span> <span class="k">fun</span> _ <span class="k">-&gt;</span> <span class="i">uc</span> <span class="i">Brushes</span><span class="o">.</span><span class="i">Red</span>)
+     )
+
+  <span class="i">Expr</span><span class="o">.</span><span class="i">start</span> <span class="k">null</span> <span onmouseout="hideTip(event, 'fs21', 108)" onmouseover="showTip(event, 'fs21', 108)" class="i">orch</span> <span class="i">highlight</span>
+</code></pre></td>
+</tr>
+</table>
+
+<ul>
+<li>The <strong>|||</strong> (any) operator allows us to run two nets in parallel, the resulting net completes whenever any of the
+branches completes (in this case are mutually exclusive given the condition)</li>
+</ul>
+
+</section>
+
+<section author="Antonio Cisternino" description="A brief tutorial for using the evReact library from the various languages supported" theme="night" title="evReact tutorial" transition="default">
+
+<h5>Dragging the square</h5>
+
+<ul>
+<li>The last example of dragging will consist in implementing the dragging of the square</li>
+<li>If the square is moved within the target square it will stay, otherwise it should be moved back to the origin</li>
+<li>This is a complex behavior that can be defined in a very compact way using <strong>evReact</strong> as shown in the next page</li>
+</ul>
+
+</section>
+
+<section author="Antonio Cisternino" description="A brief tutorial for using the evReact library from the various languages supported" theme="night" title="evReact tutorial" transition="default">
+
+<h5>Dragging the square: code</h5>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
+<span class="l">15: </span>
+<span class="l">16: </span>
+<span class="l">17: </span>
+<span class="l">18: </span>
+<span class="l">19: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp">  <span class="c">// Net performing the drag</span>
+  <span class="k">let</span> <span class="i">drag</span> <span class="o">=</span> 
+    <span class="o">+</span>(
+       ((<span onmouseout="hideTip(event, 'fs16', 109)" onmouseover="showTip(event, 'fs16', 109)" class="i">md</span> <span class="o">%-</span> <span class="k">fun</span> <span class="i">e</span> <span class="k">-&gt;</span> (<span class="o">!</span><span onmouseout="hideTip(event, 'fs31', 110)" onmouseover="showTip(event, 'fs31', 110)" class="i">rect</span>)<span class="o">.</span><span class="i">Contains</span>(<span class="i">e</span><span class="o">.</span><span class="i">Location</span>)) 
+           <span class="o">|-&gt;</span> <span class="k">fun</span> <span class="i">e</span> <span class="k">-&gt;</span> 
+                 <span class="k">let</span> <span class="i">r</span> <span class="o">=</span> <span class="o">!</span><span onmouseout="hideTip(event, 'fs31', 111)" onmouseover="showTip(event, 'fs31', 111)" class="i">rect</span>
+                 <span class="i">off</span> <span class="o">:=</span> <span class="k">new</span> <span class="i">Point</span>(<span class="i">e</span><span class="o">.</span><span class="i">X</span> <span class="o">-</span> <span class="i">r</span><span class="o">.</span><span class="i">Left</span>, <span class="i">e</span><span class="o">.</span><span class="i">Y</span> <span class="o">-</span> <span class="i">r</span><span class="o">.</span><span class="i">Top</span>))
+       <span class="o">-</span> ((<span class="o">+</span>(<span class="o">!!</span><span class="i">mm</span>) <span class="o">|-&gt;</span> <span class="k">fun</span> <span class="i">e</span> <span class="k">-&gt;</span> 
+                         <span class="i">placeR</span>(<span class="k">new</span> <span class="i">Point</span>(<span class="i">e</span><span class="o">.</span><span class="i">X</span> <span class="o">-</span> (<span class="o">!</span><span class="i">off</span>)<span class="o">.</span><span class="i">X</span>, <span class="i">e</span><span class="o">.</span><span class="i">Y</span> <span class="o">-</span> (<span class="o">!</span><span class="i">off</span>)<span class="o">.</span><span class="i">Y</span>))
+           ) <span class="o">/</span> [| <span class="i">mm</span>; <span class="i">mu</span> |])
+       <span class="o">-</span> (<span class="o">!!</span><span class="i">mu</span> <span class="o">|-&gt;</span> <span class="k">fun</span> <span class="i">e</span> <span class="k">-&gt;</span> 
+                     <span class="k">if</span> <span onmouseout="hideTip(event, 'fs38', 112)" onmouseover="showTip(event, 'fs38', 112)" class="i">not</span>(<span class="i">inT</span>()) <span class="k">then</span>
+                       (<span class="i">placeR</span>(<span class="k">new</span> <span class="i">Point</span>())
+                       <span class="i">uc</span> <span class="i">Brushes</span><span class="o">.</span><span class="i">Red</span>))
+     )
+
+  <span class="k">let</span> <span onmouseout="hideTip(event, 'fs21', 113)" onmouseover="showTip(event, 'fs21', 113)" class="i">orch</span> <span class="o">=</span> <span class="i">Orchestrator</span><span class="o">.</span><span class="i">create</span>()
+  <span class="i">Expr</span><span class="o">.</span><span class="i">start</span> <span class="k">null</span> <span onmouseout="hideTip(event, 'fs21', 114)" onmouseover="showTip(event, 'fs21', 114)" class="i">orch</span> <span class="i">highlight</span>
+  <span class="i">Expr</span><span class="o">.</span><span class="i">start</span> <span class="k">null</span> <span onmouseout="hideTip(event, 'fs21', 115)" onmouseover="showTip(event, 'fs21', 115)" class="i">orch</span> <span class="i">drag</span>
+</code></pre></td>
+</tr>
+</table>
+
+</section>
+
+<section author="Antonio Cisternino" description="A brief tutorial for using the evReact library from the various languages supported" theme="night" title="evReact tutorial" transition="default">
+
+<h5>Dragging the square: considerations</h5>
+
+<ul>
+<li>The drag net simply uses all the operations we already discussed for implementing the operation</li>
+<li>Note that we activate two nets on the orchestrator <strong>orch</strong>, so the highlight on hovering and the
+drag behaviors are tracked concurrently</li>
+</ul>
+
+</section>
+
+</section>
+
+<section >
+
+<h3>C# Tutorial</h3>
+
+<p>Coming soon</p>
+
+</section>
+
+<section >
+
+<h3>Javascript Tutorial</h3>
+
+<p>Coming soon</p>
+
+</section>
+
+
+
+        </div>
+    </div>
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.js"></script>
+    <script>
+        // Add the nohighlight class and data-noescape attribute to code elements that have already been formatted by FSharp.Formatting
+        $('pre.highlighted code').addClass('nohighlight').attr('data-noescape', '');
+
+        // Full list of configuration options available here:
+        // https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+
+            transition: 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+            // Parallax scrolling
+            // parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+            // parallaxBackgroundSize: '2100px 900px',
+
+            // Optional libraries used to extend on reveal.js
+            dependencies: [
+                { src: 'lib/js/classList.js', condition: function () { return !document.body.classList; } },
+                { src: 'plugin/markdown/marked.js', condition: function () { return !!document.querySelector('[data-markdown]'); } },
+                { src: 'plugin/markdown/markdown.js', condition: function () { return !!document.querySelector('[data-markdown]'); } },
+                { src: 'plugin/highlight/highlight.js', async: true, callback: function () { hljs.initHighlightingOnLoad(); } },
+                { src: 'plugin/zoom-js/zoom.js', async: true, condition: function () { return !!document.body.classList; } },
+                { src: 'plugin/notes/notes.js', async: true, condition: function () { return !!document.body.classList; } }
+            ]
+        });
+
+    </script>
+</body>
+</html>
+
