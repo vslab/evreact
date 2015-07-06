@@ -2,8 +2,8 @@
 */bin
 */obj
 *.suo
-Packages/NUnit*
+packages/*
 lib/*.dll
 lib/*.xml
 lib/*.pdb
-typescript/evreact.js
+typescript/*.js
