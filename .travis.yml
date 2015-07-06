@@ -1,0 +1,5 @@
+language: csharp
+solution: evReact.sln
+script:
+ - xbuild evReact.sln
+ - mono ./packages/NUnit.Runners.*/tools/nunit-console.exe ./test/bin/Debug/net40/test.dll
