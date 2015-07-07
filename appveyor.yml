@@ -1,2 +1,5 @@
+configuration:
+ - Debug
+ - Release
 before_build:
  - ps: nuget restore

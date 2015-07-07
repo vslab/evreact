@@ -1,5 +1,8 @@
 language: csharp
 solution: evReact.sln
+env:
+ - CFG=Debug
+ - CFG=Release
 script:
- - xbuild evReact.sln
- - mono ./packages/NUnit.Runners.*/tools/nunit-console.exe ./test/bin/Debug/net40/test.dll
+ - xbuild /p:Configuration=$CFG evReact.sln
+ - mono ./packages/NUnit.Runners.*/tools/nunit-console.exe ./test/bin/$CFG/net40/test.dll
