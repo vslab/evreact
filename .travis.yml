@@ -1,9 +1,15 @@
 sudo: false
 language: csharp
 solution: evReact.sln
+mono:
+  - latest
+  - 3.12.0
 env:
  - CFG=Debug
  - CFG=Release
 script:
  - xbuild /p:Configuration=$CFG evReact.sln
  - mono ./packages/NUnit.Runners.*/tools/nunit-console.exe ./test/bin/$CFG/net40/test.dll
+matrix:
+  allow_failures:
+    - mono: latest
