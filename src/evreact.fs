@@ -231,35 +231,36 @@ namespace EvReact
     member val EnqueueEvent =
       fun (orch:Orchestrator<'T>) event sender args ->
         let mutable taken = false
-        let runEval =
+        let mutable runEval =
           try
             safeLock eventQueue &taken
-            let oldEvaluating = evaluating
             if evaluating then
               eventQueue.Enqueue(event)
               senderQueue.Enqueue(sender)
               argsQueue.Enqueue(args)
+              false
             else
               evaluating <- true
-            not oldEvaluating
+              true
           finally
             safeUnlock eventQueue &taken
 
-        if runEval then
-          let mutable event = event
-          let mutable sender = sender
-          let mutable args = args
-          while evaluating do
-            orch.EvalEvent orch event sender args
-            try
-              safeLock eventQueue &taken
-              evaluating <- eventQueue.Count <> 0
-              if evaluating then
-                event <- eventQueue.Dequeue()
-                sender <- senderQueue.Dequeue()
-                args <- argsQueue.Dequeue()
-            finally
-              safeUnlock eventQueue &taken
+        let mutable event = event
+        let mutable sender = sender
+        let mutable args = args
+        while runEval do
+          orch.EvalEvent orch event sender args
+          try
+            safeLock eventQueue &taken
+            runEval <- eventQueue.Count <> 0
+            if runEval then
+              event <- eventQueue.Dequeue()
+              sender <- senderQueue.Dequeue()
+              args <- argsQueue.Dequeue()
+            else
+              evaluating <- false
+          finally
+            safeUnlock eventQueue &taken
       with get, set
 
     // FIXME: this should be a virtual protected member
